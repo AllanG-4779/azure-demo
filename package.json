@@ -1,0 +1,22 @@
+{
+  "name": "azure",
+  "version": "1.0.0",
+  "description": "azure_pug test",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "azure"
+  },
+  "keywords": [
+    "none"
+  ],
+  "author": "Allan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^3.0.2"
+  }
+}
