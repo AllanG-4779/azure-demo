@@ -4,7 +4,7 @@
   "description": "azure_pug test",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
