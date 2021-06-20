@@ -1,25 +1,35 @@
 const express = require("express");
-const { dbConnection } = require("./db/Connection");
+const mongoose = require("mongoose")
+const { testModel } = require("./Models/test");
 
 const app = express();
-let timer = 0
-const time = setInterval(()=>{
-  timer++
-},1000)
-dbConnection()
-  .then((success) => {
-    clearInterval(time)
-    console.log("Server Connection established in ",timer, "seconds");
+
+const PORT  = process.env.PORT || 4002
+const uri =
+  "mongodb+srv://allang_node:cnd80751xh@cluster0.dswp9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const url = `mongodb://127.0.0.1:27017/Members`
+
+mongoose.connect(url,{useNewUrlParser:true, useUnifiedTopology:true} ).then(success=>{
+  app.listen(PORT, ()=>{
+    console.log("Server Connected")
   })
-  .catch((e) => {
-    console.log("Connection failed ");
-  });
-app.set("view engine", "pug");
-app.use(express.static("public"));
-//routes
+}).catch(error=>{
+  console.log("Connection failed")
+})
 
-const PORT = process.env.PORT || 5000;
+app.get("/",(req,res)=>{
+const entry = new testModel({
+   Name:"Allan",
+   Age:35,
+   Marital:"Married",
+   Student:true
 
-app.listen(PORT, () => {
-  console.log("app runningrs on ", PORT);
-});
+})
+entry.save()
+.then(e=>{
+  res.send(e)
+}).catch(s=>{
+  res.send("Error Not inserted")
+})
+})
+
