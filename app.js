@@ -4,6 +4,9 @@ const { testModel } = require("./Models/test");
 
 const app = express();
 
+app.set("view engine", "pug")
+app.use(express.static("public"))
+
 const PORT  = process.env.PORT || 4002
 const uri =
   "mongodb+srv://allang_node:cnd80751xh@cluster0.dswp9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
@@ -17,7 +20,7 @@ mongoose.connect(url,{useNewUrlParser:true, useUnifiedTopology:true} ).then(succ
   console.log("Connection failed")
 })
 
-app.get("/",(req,res)=>{
+app.get("/home",(req,res)=>{
 const entry = new testModel({
    Name:"Allan",
    Age:35,
@@ -27,7 +30,7 @@ const entry = new testModel({
 })
 entry.save()
 .then(e=>{
-  res.send(e)
+  res.render("home")
 }).catch(s=>{
   res.send("Error Not inserted")
 })
